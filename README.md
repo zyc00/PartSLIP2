@@ -40,16 +40,19 @@ pip install git+https://github.com/facebookresearch/segment-anything.git
 ```
 
 ## Quick Start
+### Download data
+You can find the PartNet-Ensembled dataset used in the paper from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/).
+
 ### Download pretrained checkpoints
 You can find the pre-trained checkpoints from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/models). For few-shot inference, please use our few-shot checkpoints for each object category.
 
-### Generate Superpoint
+### Generate superpoints
 To save the superpoints and other medium results, run
 ```
 python gen_sp.py
 ```
 
-### Run PartSLIP with mask input
+### Run partSLIP with mask input
 ```
 python run_partslip.py
 ```
@@ -59,13 +62,13 @@ python run_partslip.py
 python run_partslip++.py
 ```
 
-### Semantic Segmentation Evaluation
+### Semantic segmentation evaluation
 ```
 cd eval
 python semantic_eval.py
 ```
 
-### Instance Segmentation Evaluation
+### Instance segmentation evaluation
 ```
 cd eval
 python instance_eval.py
