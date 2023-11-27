@@ -42,12 +42,12 @@ def calc_sp_connectivity(xyz, superpoints, thr=0.05):
     return connectivity
 
 def glip_infer(category, save_dir, part_names, num_views, point_idx_all, device, img_dir):
-    config ="/yuchen_fast/PartSLIP/GLIP/configs/glip_Swin_L_pt.yaml"
-    weight_path = "/yuchen_fast/partslip_models/%s.pth" % category
+    config ="./GLIP/configs/glip_Swin_L_pt.yaml"
+    weight_path = "./models/%s.pth" % category
     glip_demo = load_model(config, weight_path)
 
     model_type = "vit_h"
-    sam_checkpoint = "/yuchen_fast/partslip_models/sam_vit_h_4b8939.pth"
+    sam_checkpoint = "./models/sam_vit_h_4b8939.pth"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
     sam.to(device="cuda:0")
     sam_predictor = SamPredictor(sam)
@@ -134,7 +134,7 @@ def load_ply(file_name):
 
 def load_partslip_semantic(category, model, part_names, xyz):
     sem_label = np.zeros([xyz.shape[0]]) - 1
-    save_path = f"/yuchen_slow/partslip_result/result_sam_test/{category}/{model}/instance_seg"
+    save_path = f"./result_ps/{category}/{model}/instance_seg"
     for i, part_name in enumerate(part_names):
         _, point_semantic_labels = load_ply(f"{save_path}/{part_name}.ply")
         assert point_semantic_labels.shape[0] == xyz.shape[0]
@@ -147,7 +147,7 @@ def load_partslip_semantic(category, model, part_names, xyz):
 def load_partslip(category, model, part_names, xyz, num_instance,
                   num_superpoints, superpoints):
     point_logits = np.zeros([xyz.shape[0], num_instance])
-    save_path = f"/yuchen_slow/partslip_result/result_sam_test/{category}/{model}/instance_seg"
+    save_path = f"./result_ps/{category}/{model}/instance_seg"
     instance_idx = 0
     for part_name in part_names:
         _, point_instance_labels = load_ply(f"{save_path}/{part_name}.ply")
@@ -175,13 +175,13 @@ def sem2ins(xyz, rgb, screen_coor_all, point_idx_all, part_names,
     regenerate_sam = True
     device = torch.device("cuda:0")
     category, model = save_dir.split("/")[-2], save_dir.split("/")[-1]       
-    point_instance_id = np.load(f"/yuchen_fast/partslip_data/test/{category}/{model}/label.npy", allow_pickle=True).item()["instance_seg"]
+    point_instance_id = np.load(f"./data/test/{category}/{model}/label.npy", allow_pickle=True).item()["instance_seg"]
     point_instance_id += 1
     point_instance_id_pad = np.concatenate([point_instance_id, [-1]])
     point_instance_id_pad = torch.as_tensor(point_instance_id_pad, device=device)
-    superpoints = np.load(f"/yuchen_fast/partslip_data/img_sp/{category}/{model}/sp.npy", allow_pickle=True)
+    superpoints = np.load(f"./data/img_sp/{category}/{model}/sp.npy", allow_pickle=True)
 
-    medium_save_path = f"/yuchen_slow/partslip_result/zero_shot_project/{category}/{model}"
+    medium_save_path = f"./result_ps++/{category}/{model}"
     if not os.path.exists(f"{medium_save_path}/glip_sam_cache_{num_view}.npy") or regenerate_sam:
         pixel_instance_id_all_views, mask_cat_ids = glip_infer(category, save_dir, part_names, num_view,
                                                 point_idx_all, device, img_dir)

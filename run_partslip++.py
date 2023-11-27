@@ -26,9 +26,9 @@ if __name__ == "__main__":
     categories = partnete_meta.keys()
 
     for category in categories:
-        models = os.listdir(f"/yuchen_fast/partslip_data/img_sp/{category}") # list of models
+        models = os.listdir(f"./data/img_sp/{category}") # list of models
         for model in models:
             print(f"Category: {category}, Model: {model}")
-            test(f"/yuchen_fast/partslip_data/test/{category}/{model}/pc.ply", partnete_meta[category], 
-                 sp_dir=f"/yuchen_fast/partslip_data/img_sp/{category}/{model}",
-                 save_dir=f"/yuchen_slow/partslip_result/zero_shot_project/{category}/{model}")
+            test(f"./data/test/{category}/{model}/pc.ply", partnete_meta[category], 
+                 sp_dir=f"./data/img_sp/{category}/{model}",
+                 save_dir=f"./result_ps++/{category}/{model}")

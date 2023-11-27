@@ -6,10 +6,10 @@ from eval_utils import eval_per_class_ap
 from commons import force_mkdir_new
 
 meta = json.load(open("./PartNetE_meta.json", "r"))
-save_path = f"/yuchen_slow/partslip_result/result_sam_test"
+save_path = f"./result_ps++"
 
 def gen_gt_labels_partnete(category, model):
-    data = np.load(f"/yuchen_fast/partslip_data/test/{category}/{model}/label.npy", allow_pickle=True).item()
+    data = np.load(f"./data/test/{category}/{model}/label.npy", allow_pickle=True).item()
     sem_label = data["semantic_seg"]
     ins_label = data["instance_seg"]
     return sem_label, ins_label
@@ -89,7 +89,7 @@ categorys = ["Door"]
 for category in categorys:
     force_mkdir_new("gt")
     force_mkdir_new("pred")
-    models = os.listdir("/yuchen_fast/partslip_data/test/%s/" % category)
+    models = os.listdir("./data/test/%s/" % category)
     for model in models:
         print(model)
         try:

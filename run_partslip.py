@@ -12,12 +12,11 @@ from segment_anything import sam_model_registry, SamPredictor
 def Infer(input_pc_file, category, model, part_names, zero_shot=False, save_dir="tmp"):
     if zero_shot:
         config ="GLIP/configs/glip_Swin_L.yaml"
-        weight_path = "/yuchen_fast/partslip_models/glip_large_model.pth"
+        weight_path = "./models/glip_large_model.pth"
         print("-----Zero-shot inference of %s-----" % input_pc_file)
     else:
         config ="GLIP/configs/glip_Swin_L_pt.yaml"
-        weight_path = "/yuchen_fast/partslip_models/%s.pth" % category
-        # weight_path = "/yuchen_fast/partslip_result/model_best.pth"
+        weight_path = "./models/%s.pth" % category
         print("-----Few-shot inference of %s-----" % input_pc_file)
         
     print("[loading GLIP model...]")
@@ -41,14 +40,14 @@ def Infer(input_pc_file, category, model, part_names, zero_shot=False, save_dir=
     
     print("[glip infrence...]")
     SAM_ENCODER_VERSION = "vit_h"
-    SAM_CHECKPOINT_PATH = "/yuchen_fast/partslip_models/sam_vit_h_4b8939.pth"
+    SAM_CHECKPOINT_PATH = "./models/sam_vit_h_4b8939.pth"
     sam = sam_model_registry[SAM_ENCODER_VERSION](checkpoint=SAM_CHECKPOINT_PATH)
     sam.to(device=torch.device("cuda:0"))
     sam_predictor = SamPredictor(sam)
     masks = glip_inference(glip_demo, save_dir, part_names, sam_predictor, num_views=num_views)
     
     print('[generating superpoints...]')
-    superpoint = np.load(f"/yuchen_fast/partslip_data/img_sp_more_views/{category}/{model}/sp.npy", allow_pickle=True)
+    superpoint = np.load(f"./data/img_sp_more_views/{category}/{model}/sp.npy", allow_pickle=True)
     
     print('[converting bbox to 3D segmentation...]')
     bbox2seg(xyz, superpoint, masks, screen_coords, pc_idx, part_names, save_dir, solve_instance_seg=True, num_view=num_views)
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     partnete_meta = json.load(open("PartNetE_meta.json")) 
     categories = partnete_meta.keys()
     for category in categories:
-        models = os.listdir(f"/yuchen_fast/partslip_data/test/{category}") # list of models
+        models = os.listdir(f"./data/test/{category}") # list of models
         for model in models:
-            Infer(f"/yuchen_fast/partslip_data/test/{category}/{model}/pc.ply", category, model, partnete_meta[category], zero_shot=False, save_dir=f"/yuchen_slow/partslip_result/result_sam_test_mv/{category}/{model}")
+            Infer(f"./data/test/{category}/{model}/pc.ply", category, model, partnete_meta[category], zero_shot=False, save_dir=f"./result_ps/{category}/{model}")
         

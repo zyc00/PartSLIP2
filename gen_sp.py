@@ -45,8 +45,8 @@ if __name__ == "__main__":
     # categories = ["KitchenPot", "Oven", "Suitcase", "Toaster"]
     categories = categories_list[5]
     for category in categories:  
-        models = os.listdir(f"/yuchen_fast/partslip_data/test/{category}") # list of models
+        models = os.listdir(f"./data/test/{category}") # list of models
         # models = sorted(models)
         for model in models:
-            Infer(f"/yuchen_fast/partslip_data/test/{category}/{model}/pc.ply", category, partnete_meta[category], zero_shot=False, save_dir=f"/yuchen_fast/partslip_data/img_sp/{category}/{model}")
+            Infer(f"./data/test/{category}/{model}/pc.ply", category, partnete_meta[category], zero_shot=False, save_dir=f"./data/img_sp/{category}/{model}")
         

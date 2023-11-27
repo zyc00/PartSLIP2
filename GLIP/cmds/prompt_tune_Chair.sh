@@ -4,7 +4,7 @@ python -m torch.distributed.launch --nproc_per_node=1 tools/finetune.py \
     --skip-test \
     --custom_shot_and_epoch_and_general_copy 80_200_1 \
     --evaluate_only_best_on_test --push_both_val_and_test \
-    MODEL.WEIGHT /yuchen_fast/partslip_models/glip_large_model.pth \
+    MODEL.WEIGHT ./models/glip_large_model.pth \
     SOLVER.USE_AMP True \
     TEST.DURING_TRAINING True \
     SOLVER.IMS_PER_BATCH 3 \

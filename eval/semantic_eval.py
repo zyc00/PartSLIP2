@@ -10,7 +10,7 @@ def calc_iou(pred, gt) -> float:
     return iou
 
 partnete_meta = json.load(open("PartNetE_meta.json"))
-save_dir = f"/yuchen_slow/partslip_result/result_sam_test"
+save_dir = f"./result_ps++"
 tot_miou = 0
 
 categories = partnete_meta.keys()
@@ -22,7 +22,7 @@ for category in categories:
 
     print(len(models))
     for model in models:
-        gt_sem_label = np.load(f"/yuchen_fast/partslip_data/test/{category}/{model}/label.npy", allow_pickle=True).item()['semantic_seg']
+        gt_sem_label = np.load(f"./data/test/{category}/{model}/label.npy", allow_pickle=True).item()['semantic_seg']
         for i, part in enumerate(part_names):
             if (gt_sem_label == i).sum() == 0:
                 continue
