@@ -21,6 +21,8 @@ dependencies:
   - torchvision=0.10.0
   - pip==23.0.1
   - pip:
+      - h5py==3.10.0
+      - progressbar==2.5
       - brotlipy==0.7.0
       - colorama==0.4.6
       - einops==0.6.1

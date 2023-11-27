@@ -3,7 +3,7 @@
 official implementation of "PartSLIP++: Enhancing Low-Shot 3D Part Segmentation via Multi-View Instance Segmentation and Maximum Likelihood Estimation"
 
 ## installation
-### Create a conda envrionment and install dependencies.
+### Create a conda environment and install dependencies.
 ```
 conda env create -f environment.yml
 conda activate partslip++
