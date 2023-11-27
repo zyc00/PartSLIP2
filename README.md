@@ -41,10 +41,10 @@ pip install git+https://github.com/facebookresearch/segment-anything.git
 
 ## Quick Start
 ### Download data
-You can find the PartNet-Ensembled dataset used in the paper from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/).
+You can find the PartNet-Ensembled dataset used in the paper from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/). Put downloaded data in `./data` folder.
 
 ### Download pretrained checkpoints
-You can find the pre-trained checkpoints from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/models). For few-shot inference, please use our few-shot checkpoints for each object category.
+You can find the pre-trained checkpoints from [here](https://huggingface.co/datasets/minghua/PartSLIP/tree/main/models). Please use our few-shot checkpoints for each object category. Put downloaded checkpoints in `./model` folder.
 
 ### Generate superpoints
 To save the superpoints and other medium results, run
