@@ -3,10 +3,10 @@ import torch
 import json
 from pytorch3d.io import IO
 import numpy as np
-from src_sam.utils import normalize_pc
-from src_sam.render_pc import render_pc
-from src_sam.glip_inference import glip_inference, load_model
-from src_sam.bbox2seg import bbox2seg
+from src.utils import normalize_pc
+from src.render_pc import render_pc
+from src.glip_inference import glip_inference, load_model
+from src.bbox2seg import bbox2seg
 from segment_anything import sam_model_registry, SamPredictor
 
 def Infer(input_pc_file, category, model, part_names, zero_shot=False, save_dir="tmp"):

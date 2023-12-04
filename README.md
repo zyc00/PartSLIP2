@@ -61,15 +61,3 @@ python run_partslip.py
 ```
 python run_partslip++.py
 ```
-
-### Semantic segmentation evaluation
-```
-cd eval
-python semantic_eval.py
-```
-
-### Instance segmentation evaluation
-```
-cd eval
-python instance_eval.py
-```
